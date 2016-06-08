@@ -5,7 +5,7 @@ class Cl_Conexion {
     private $host = "localhost";
     private $database = "transito";
     private $user = "root";
-    private $password = "root";
+    private $password = "";
     private $cone;
 
     function __construct() {

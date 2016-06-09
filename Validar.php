@@ -4,10 +4,10 @@ $user = $_POST["txtUser"];
 $pass = $_POST["txtPass"];
 
 include './Clases/Cl_Conexion.php';
-include './Clases/DaoLogin.php';
+include './dao/DaoUsuario.php';
 
 $cone = new Cl_Conexion();
-$dao = new DaoLogin($cone);
+$dao = new DaoUsuario($cone);
 
 $resp = $dao->validar($user, $pass);
 

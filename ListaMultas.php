@@ -16,7 +16,7 @@ $rut = $_POST["txtRut"];
     <body>
         <div class="container" style="background-color: #2A2A2A">
             <center>
-                <h2 style="color: #FDD420">NOMBRE DEL CONSULTADO</h2>
+                <h2 style="color: #FDD420">RUT CONSULTADO : <?php echo $rut; ?></h2>
                 <div class="row">
                     <div class="col-lg-3"></div>
                     <div class="col-lg-6">
@@ -26,30 +26,38 @@ $rut = $_POST["txtRut"];
                         $cone = new Cl_Conexion();
                         $dao = new DAOInfraccion($cone);
                         $resultado = $dao->Listar($rut);
-                        ?>
-                        <table class="table" style="color: #FDD420">
-                            <tr>
-                                <td><b>Número</b></td>
-                                <td><b>Detalle</b></td>
-                                <td><b>idPersona</b></td>
-                                <td><b>apelada</b></td>
-                                <td><b>monto</b></td>
-                                <td><b>fiscalizador</b></td>
-                            </tr>
-                            <?php
-                            while ($row = mysqli_fetch_array($resultado)) {
-                                ?>
+                        if (mysqli_num_rows($resultado) > 1) {
+                            ?>
+                            <table class="table" style="color: #FDD420">
                                 <tr>
-                                    <td><b><?php echo $row[0]; ?></b></td>
-                                    <td><b><?php echo $row[1]; ?></b></td>
-                                    <td><b><?php echo $row[2]; ?></b></td>
-                                    <td><b><?php echo $row[3]; ?></b></td>
-                                    <td><b><?php echo $row[4]; ?></b></td>
-                                    <td><b><?php echo $row[5]; ?></b></td>
+                                    <td><b>Número infraccion</b></td>
+                                    <td><b>Detalle</b></td>
+                                    <td><b>Estado</b></td>
+                                    <td><b>monto</b></td>
+                                    <td><b>fiscalizador</b></td>
                                 </tr>
                                 <?php
-                            }
-                            ?>
+                                while ($row = mysqli_fetch_array($resultado)) {
+                                    ?>
+                                    <tr>
+                                        <td><b><?php echo $row[0]; ?></b></td>
+                                        <td><b><?php echo $row[1]; ?></b></td>
+                                        <td><b><?php
+                                                if ($row[3] > 0) {
+                                                    echo "Apelada";
+                                                } else {
+                                                    echo "Pendiente";
+                                                }
+                                                ?></b></td>
+                                        <td><b><?php echo $row[4]; ?></b></td>
+                                        <td><b><?php echo $row[5]; ?></b></td>
+                                    </tr>
+                                    <?php
+                                }
+                            } else {
+                                ?><h2 style="color: #ffffff">No se encontraror multas asociadas.</h2>
+                                    <script> alert('No se encontraror multas asociadas al rut');</script>
+                            <?php } ?>
                         </table>
                     </div>
                 </div>

@@ -58,7 +58,7 @@ class DaoInfraccion {
 
      public function ListarInfraccion() {
         try {
-            $sql = "select * from infraccion";
+            $sql = "select * from infraccion order by apelada asc";
             $resultado = $this->cone->sqlSeleccion($sql);
             return $resultado;
         } catch (Exception $exc) {
@@ -67,7 +67,8 @@ class DaoInfraccion {
     }
     public function Listar($rut) {
         try {
-            $sql = "select * from infraccion inner join persona on persona.idpersona = infraccion.persona_idpersona where persona.rutpersona='$rut'";
+            $sql = "select * from infraccion inner join persona on persona.idpersona = infraccion.persona_idpersona"
+           . " where persona.rutpersona='$rut' order by apelada asc";
             $resp = $this->cone->sqlSelection($sql);
             return $resp;
         } catch (Exception $exc) {

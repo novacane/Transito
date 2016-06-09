@@ -6,6 +6,7 @@ and open the template in the editor.
 -->
 <?php
 include './Home.php';
+$rut = $_POST["txtRut"];
 ?>
 <html>
     <head>
@@ -19,20 +20,36 @@ include './Home.php';
                 <div class="row">
                     <div class="col-lg-3"></div>
                     <div class="col-lg-6">
+                        <?php
+                        include '/dao/DAOInfraccion.php';
+                        include './clases/Cl_Conexion.php';
+                        $cone = new Cl_Conexion();
+                        $dao = new DAOInfraccion($cone);
+                        $resultado = $dao->Listar($rut);
+                        ?>
                         <table class="table" style="color: #FDD420">
                             <tr>
                                 <td><b>Número</b></td>
                                 <td><b>Detalle</b></td>
-                                <td><b>Fecha</b></td>
-                                <td><b>Valor</b></td>
+                                <td><b>idPersona</b></td>
+                                <td><b>apelada</b></td>
+                                <td><b>monto</b></td>
+                                <td><b>fiscalizador</b></td>
                             </tr>
-                            <tr>
-                                <td>00001</td>
-                                <td>estado de ebriedad</td>
-                                <td>30/02/1992</td>
-                                <td>$50.000</td>
-                            </tr>
-
+                            <?php
+                            while ($row = mysqli_fetch_array($resultado)) {
+                                ?>
+                                <tr>
+                                    <td><b><?php echo $row[0]; ?></b></td>
+                                    <td><b><?php echo $row[1]; ?></b></td>
+                                    <td><b><?php echo $row[2]; ?></b></td>
+                                    <td><b><?php echo $row[3]; ?></b></td>
+                                    <td><b><?php echo $row[4]; ?></b></td>
+                                    <td><b><?php echo $row[5]; ?></b></td>
+                                </tr>
+                                <?php
+                            }
+                            ?>
                         </table>
                     </div>
                 </div>

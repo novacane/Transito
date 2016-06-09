@@ -89,7 +89,7 @@ and open the template in the editor.
                     <div class="col-lg-3">
                         <br>
                         <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Buscar Rut..." >
+                            <input type="text" id="txtRut" name="txtRut" class="form-control" placeholder="Buscar Rut..." >
                             <span class="input-group-btn">
                                 <button class="btn btn-default" type="submit">Buscar</button>
                             </span>
